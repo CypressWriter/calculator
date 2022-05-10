@@ -45,35 +45,58 @@ let addition = false;
 let subtraction = false;
 let multiplication = false;
 let division = false;
+let dotPressed = false;
 
 const addbtn = document.querySelector("#add");
 addbtn.addEventListener("click", () => {
+    if (operatorPressed === true) return;
     displayArray += "+";
     displayTop.textContent = displayArray;
     operatorPressed = true;
     addition = true;
+    dotPressed = false;
 });
 const subtractbtn = document.querySelector("#subtract");
 subtractbtn.addEventListener("click", () => {
+    if (operatorPressed === true) return;
     displayArray += "-";
     displayTop.textContent = displayArray;
     operatorPressed = true;
     subtraction = true;
+    dotPressed = false;
 });
 const multiplybtn = document.querySelector("#multiply");
 multiplybtn.addEventListener("click", () => {
+    if (operatorPressed === true) return;
     displayArray += "*";
     displayTop.textContent = displayArray;
     operatorPressed = true;
     multiplication = true;
+    dotPressed = false;
 });
 const dividebtn = document.querySelector("#divide");
 dividebtn.addEventListener("click", () => {
+    if (operatorPressed === true) return;    
     displayArray += "/";
     displayTop.textContent = displayArray;
     operatorPressed = true;
     division = true;
+    dotPressed = false;
 });
+
+const deletebtn = document.querySelector("#delete");
+deletebtn.addEventListener("click", () => {
+    if (operatorPressed === false) {
+        firstNum = firstNum.slice(-1);
+        displayArray = displayArray.slice(-1);
+        displayTop.textContent = displayArray;
+    }
+    else if (operatorPressed === true) {
+        secondNum = secondNum.slice(-1);
+        displayArray = displayArray.slice(-1);
+        displayTop.textContent = displayArray;
+    }
+})
 
 const onebtn = document.querySelector("#one");
 onebtn.addEventListener("click", () => {
@@ -185,6 +208,21 @@ zerobtn.addEventListener("click", () => {
         secondNum += "0";
     }
 });
+const dotbtn = document.querySelector("#dot");
+dotbtn.addEventListener("click", () => {
+    if (dotPressed === false)
+    {
+        displayArray += ".";
+        displayTop.textContent = displayArray;
+        if (operatorPressed === false) {
+            firstNum += ".";
+        }
+        else {
+            secondNum += ".";
+        }
+        dotPressed = true;
+    }
+});
 
 
 const equalsbtn = document.querySelector("#equals");
@@ -203,6 +241,10 @@ equalsbtn.addEventListener("click", () => {
         displayBottom.textContent = result;
     }
     else if (division === true) {
+        if (secondNum === "0" || secondNum === 0) {
+            displayBottom.textContent = "OOPSIE";
+            return;
+        }
         result = divide(firstNum, secondNum);
         displayBottom.textContent = result;
     }
@@ -214,8 +256,11 @@ equalsbtn.addEventListener("click", () => {
     multiplication = false;
     division = false;
 
-    firstNum = 0;
+    firstNum = result;
     secondNum = 0;
+
+    displayArray = firstNum;
+    displayTop.textContent = displayArray;
 });
 
 const clearbtn = document.querySelector("#clear");

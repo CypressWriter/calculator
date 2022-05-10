@@ -1,5 +1,6 @@
 .container {
     margin: auto;
+    padding: 250px;
     width: 500px;
     height: 750px;
 }
@@ -21,4 +22,11 @@
 .bottom-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+}
+.button {
+    background-color: antiquewhite;
+    border: 1px solid blanchedalmond;
+}
+.button:hover {
+    background-color: burlywood;
 }
